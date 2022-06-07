@@ -1,5 +1,5 @@
 const { server } = require('./mocks/server.js');
-const { addPosition } = require('./instance.js');
+const { addUser, getUsers } = require('./instance.js');
 
 describe('Axios API', () => {
   beforeAll(() =>
@@ -12,7 +12,7 @@ describe('Axios API', () => {
 
   afterAll(() => server.close());
 
-  it('should call axios and return a response', async () => {
+  it('should call axios post and return a response', async () => {
     server.printHandlers(); // This is showing me the route configurations fine.
 
     const data = {
@@ -21,8 +21,19 @@ describe('Axios API', () => {
       lastName: 'lastName',
     };
 
-    const response = await addPosition(data);
+    const response = await addUser(data);
 
     console.log(response); // I just want to validate if it is returning the mocked value.
+  });
+
+  it('should call axios get and return a response', async () => {
+    const expectedData = {
+      username: 'username',
+      firstName: 'firstName',
+      lastName: 'lastName',
+    };
+
+    const response = await getUsers();
+    expect(response).toMatchObject({ data: expectedData, status: 200 });
   });
 });

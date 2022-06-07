@@ -3,9 +3,11 @@ const { baseUrl } = require('./config');
 
 const instanceAxios = axios.create({ baseURL: baseUrl });
 
-const addPosition = async (data) => {
-  const response = await instanceAxios.post('/positions', data);
+const addUser = async (data) => {
+  const response = await instanceAxios.post('/user', data);
   return response.data;
 };
 
-module.exports = { addPosition };
+const getUsers = () => instanceAxios.get('/users');
+
+module.exports = { addUser, getUsers };
